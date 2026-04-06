@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marota - Povoado em Pindobaçu, Bahia</title>
+    <style>
+        /* Base e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Cores Padrão */
+        :root {
+            --primary-color: #2e7d32; /* Verde natural */
+            --secondary-color: #ff8f00; /* Laranja quente do sertão */
+            --dark-bg: #263238;
+            --light-bg: #ffffff;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Seção Hero (Destaque principal) */
+        .hero {
+            background: linear-gradient(rgba(38, 50, 56, 0.7), rgba(38, 50, 56, 0.7)), url('https://images.unsplash.com/photo-1542283084-297eb098b6de?auto=format&fit=crop&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            font-style: italic;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Seções Gerais */
+        .section {
+            padding: 60px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        /* Avaliações */
+        .reviews-stats {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .review-card {
+            background: var(--light-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .review-author {
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        /* Localização e Contato */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-info strong {
+            color: #555;
+        }
+
+        .map-card {
+            flex: 1;
+            min-width: 300px;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--dark-bg);
+            color: #ccc;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Responsividade */
+        @media(max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 15px;
+            }
+            nav a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            .contact-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Marota</h1>
+        <nav>
+            <a href="#sobre">Sobre</a>
+            <a href="#avaliacoes">Avaliações</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="sobre">
+        <h2>Vila Marota</h2>
+        <p>"Apenas um simples Povoado no interior do nordeste da Bahia. <br> Just a simple village in the northeast of Bahia."</p>
+        <span class="badge">Vila na Bahia</span>
+    </section>
+
+    <section class="section" id="avaliacoes">
+        <h2 class="section-title">O que dizem sobre nós</h2>
+        
+        <div class="reviews-stats">
+            ⭐ 4.5 33 avaliações no Google
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <p class="review-text">"Muito bom melhor cidade da região"</p>
+                <p class="review-author">- Visitante do Google</p>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Lugar bom, mais as pessoas não são"</p>
+                <p class="review-author">- Visitante do Google</p>
+            </div>
+            <div class="review-card">
+                <p class="review-text">"Povo bom e acolhedor."</p>
+                <p class="review-author">- Kerlon (2 anos atrás)</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contato">
+        <h2 class="section-title">Nossa Localização</h2>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Informações Comerciais</h3>
+                <p><strong>Endereço:</strong> Rua Itiúba, 1 - Itiúba street - Marota<br>Pindobaçu - BA, 44774-300</p>
+                <p><strong>Telefone:</strong> <a href="tel:+5573998410051" style="color: var(--primary-color); text-decoration: none;">(73) 99841-0051</a></p>
+                <p><strong>Horário de funcionamento:</strong> Aberto 24 horas</p>
+                <p style="font-size: 0.9rem; color: #d32f2f;">* Feriados (como a Páscoa) podem afetar o horário de funcionamento.</p>
+                
+                <div style="margin-top: 30px;">
+                    <a href="tel:+5573998410051" class="btn">Ligar Agora</a>
+                </div>
+            </div>
+
+            <div class="map-card">
+                <h3 style="color: #555; margin-bottom: 15px;">Google Maps</h3>
+                <p style="color: #777; margin-bottom: 20px;">Veja rotas e explore a nossa região pelo mapa oficial.</p>
+                <a href="https://www.google.com/maps/place/Marota/@-10.7447281,-40.4498876,763m/data=!3m2!1e3!4b1!4m6!3m5!1s0x76d13504c228aa1:0x39cbfe5d04f4c43b!8m2!3d-10.7447334!4d-40.4473127!16s%2Fg%2F11h582pf_v?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn">Abrir Rota no Mapa</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Marota - Pindobaçu, BA. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
