@@ -1,56 +1,80 @@
-// Configuração da API WeatherAPI
-const API_KEY = '7b51fc0be70d02b4e105916e2636d989';
-const API_URL = 'https://api.weatherapi.com/v1/current.json';
 // Coordenadas de Marota, Pindobaçu, BA
-const MAROTA_COORDS = '-10.7447,-40.4498';
+const MAROTA_LAT = '-10.7447';
+const MAROTA_LON = '-40.4498';
+
+// Função para traduzir código de clima
+function getWeatherDescription(weatherCode) {
+    const weatherCodes = {
+        0: '☀️ Céu limpo',
+        1: '🌤️ Parcialmente nublado',
+        2: '⛅ Nublado',
+        3: '☁️ Muito nublado',
+        45: '🌫️ Neblina',
+        48: '🌫️ Neblina com geada',
+        51: '🌧️ Chuva leve',
+        53: '🌧️ Chuva moderada',
+        55: '🌧️ Chuva forte',
+        61: '🌧️ Chuva leve',
+        63: '🌧️ Chuva moderada',
+        65: '🌧️ Chuva forte',
+        71: '❄️ Neve leve',
+        73: '❄️ Neve moderada',
+        75: '❄️ Neve forte',
+        77: '❄️ Grãos de neve',
+        80: '🌧️ Chuva leve',
+        81: '🌧️ Chuva moderada',
+        82: '🌧️ Chuva forte',
+        85: '❄️ Neve leve',
+        86: '❄️ Neve forte',
+        95: '⛈️ Tempestade'
+    };
+    return weatherCodes[weatherCode] || '🌤️ Desconhecido';
+}
 
 // Função para buscar o clima
 async function fetchWeather() {
     try {
         const response = await fetch(
-            `${API_URL}?key=${API_KEY}&q=${MAROTA_COORDS}&lang=pt&aqi=no`
+            `https://api.open-meteo.com/v1/forecast?latitude=${MAROTA_LAT}&longitude=${MAROTA_LON}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=America/Bahia`
         );
         
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || 'Erro ao buscar dados do clima');
+            throw new Error('Erro ao conectar com o serviço de clima');
         }
         
         const data = await response.json();
         displayWeather(data);
     } catch (error) {
-        console.error('Erro na API do clima:', error);
+        console.error('Erro:', error);
         document.getElementById('weather-container').innerHTML = 
-            `<p style="color: #d32f2f; text-align: center;">Erro ao carregar previsão do tempo: ${error.message}</p>`;
+            `<p style="color: #d32f2f; text-align: center;">Erro ao carregar clima. Tente mais tarde.</p>`;
     }
 }
 
 // Função para exibir o clima
 function displayWeather(data) {
-    const location = data.location;
     const current = data.current;
+    const timezone = data.timezone;
     
     const weatherHTML = `
         <div class="weather-content">
             <div class="weather-header">
-                <h3>Previsão do Tempo - ${location.name}</h3>
+                <h3>Previsão do Tempo - Marota, Pindobaçu</h3>
             </div>
             <div class="weather-main">
                 <div class="weather-temp">
-                    <span class="temperature">${Math.round(current.temp_c)}°C</span>
-                    <img src="${current.condition.icon}" alt="Clima" class="weather-icon">
+                    <span class="temperature">${Math.round(current.temperature_2m)}°C</span>
+                    <span class="weather-emoji">${getWeatherDescription(current.weather_code)}</span>
                 </div>
                 <div class="weather-details">
-                    <p class="condition">${current.condition.text}</p>
+                    <p class="condition">${getWeatherDescription(current.weather_code).split(' ').slice(1).join(' ')}</p>
                     <div class="weather-info">
-                        <p><strong>Sensação:</strong> ${Math.round(current.feelslike_c)}°C</p>
-                        <p><strong>Umidade:</strong> ${current.humidity}%</p>
-                        <p><strong>Vento:</strong> ${Math.round(current.wind_kph)} km/h</p>
-                        <p><strong>Pressão:</strong> ${current.pressure_mb} mb</p>
+                        <p><strong>Umidade:</strong> ${current.relative_humidity_2m}%</p>
+                        <p><strong>Vento:</strong> ${Math.round(current.wind_speed_10m)} km/h</p>
                     </div>
                 </div>
             </div>
-            <p class="weather-updated">Atualizado em: ${new Date(current.last_updated).toLocaleString('pt-BR')}</p>
+            <p class="weather-updated">Última atualização: agora</p>
         </div>
     `;
     
