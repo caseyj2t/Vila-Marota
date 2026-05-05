@@ -247,6 +247,88 @@ footer p {
     margin-bottom: 10px;
 }
 
+/* Widget de Clima */
+#weather-container {
+    margin: 30px 0;
+}
+
+.weather-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.weather-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 15px;
+}
+
+.weather-header h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.weather-temp {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 0 0 auto;
+}
+
+.temperature {
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.weather-details {
+    flex: 1;
+}
+
+.condition {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.weather-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.weather-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.weather-updated {
+    text-align: right;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
 /* Responsividade */
 @media(max-width: 768px) {
     header {
@@ -265,5 +347,23 @@ footer p {
     }
     .contact-container {
         padding: 20px;
+    }
+    
+    .weather-main {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .weather-temp {
+        justify-content: center;
+    }
+    
+    .temperature {
+        font-size: 2.5rem;
+    }
+    
+    .weather-icon {
+        width: 60px;
+        height: 60px;
     }
 }
